@@ -1,0 +1,12 @@
+export { Bat }          from './Bat';
+export { Demon }        from './Demon';
+export { Frankenstein } from './Frankenstein';
+export { Ghost }        from './Ghost';
+export { Mummy }        from './Mummy';
+export { Pumpkin }      from './Pumpkin';
+export { Skull }        from './Skull';
+export { Spider }       from './Spider';
+export { Vampire }      from './Vampire';
+export { Werewolf }     from './Werewolf';
+export { Witch }        from './Witch';
+export { Zombie }       from './Zombie';

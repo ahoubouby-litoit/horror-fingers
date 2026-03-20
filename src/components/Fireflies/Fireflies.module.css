@@ -1,0 +1,13 @@
+.container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  animation: firefly linear infinite;
+  animation-fill-mode: both;
+}

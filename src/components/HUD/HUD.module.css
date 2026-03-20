@@ -1,0 +1,89 @@
+.titleBar {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.title {
+  font-family: 'Creepster', cursive;
+  font-size: clamp(20px, 5vw, 52px);
+  color: #dd0000;
+  letter-spacing: 0.12em;
+  text-shadow: 0 0 18px #ff0000, 0 0 40px #880000, 0 0 80px #440000;
+  animation: titleFlicker 9s infinite;
+}
+
+.subtitle {
+  font-family: 'Creepster', cursive;
+  color: #660022;
+  font-size: clamp(9px, 1.6vw, 15px);
+  letter-spacing: 0.25em;
+  margin-top: 4px;
+  text-shadow: 0 0 8px #880000;
+}
+
+/* ─── Counter ──────────────────────────────────────────────── */
+.counter {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 10;
+  text-align: right;
+  pointer-events: none;
+}
+
+.countNum {
+  display: block;
+  font-family: 'Creepster', cursive;
+  font-size: clamp(28px, 5vw, 54px);
+  color: #cc3300;
+  text-shadow: 0 0 16px #ff0000;
+  line-height: 1;
+}
+
+.countNum.pop {
+  animation: countPop 0.4s ease-out;
+}
+
+.countLabel {
+  display: block;
+  font-family: 'Creepster', cursive;
+  color: #660022;
+  font-size: clamp(8px, 1.2vw, 12px);
+  letter-spacing: 0.2em;
+}
+
+/* ─── First-launch intro ───────────────────────────────────── */
+.intro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+  animation: introFade 1s ease-out;
+}
+
+.introIcon {
+  font-size: clamp(48px, 12vw, 120px);
+  line-height: 1;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 0 20px #ff2200);
+  animation: introIcon 2.5s ease-in-out infinite;
+  display: block;
+}
+
+.introCopy {
+  font-family: 'Creepster', cursive;
+  font-size: clamp(16px, 3vw, 32px);
+  color: #880022;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 14px #660011;
+}

@@ -1,0 +1,4 @@
+/* CursorTrail is now a pure canvas element rendered in CursorTrail.tsx.
+   All cursor + trail + splat drawing happens on the canvas via the
+   requestAnimationFrame loop — no CSS classes needed here.
+   This file is kept as a placeholder so imports don't break. */

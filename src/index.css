@@ -1,0 +1,278 @@
+/* ─── External font ──────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+/* ─── Reset ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: #060008;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Global keyframe animations ────────────────────────────────────────── */
+
+@keyframes floatUp {
+  0%   { transform: translateY(0)      scale(1)    rotate(0deg);   opacity: 1; }
+  25%  { transform: translateY(-40px)  scale(1.15) rotate(-6deg);  opacity: 1; }
+  75%  { transform: translateY(-110px) scale(0.85) rotate(5deg);   opacity: 0.7; }
+  100% { transform: translateY(-200px) scale(0.4)  rotate(-8deg);  opacity: 0; }
+}
+
+@keyframes keyBounce {
+  0%   { transform: translateX(-50%) scale(1.4); }
+  60%  { transform: translateX(-50%) scale(0.9); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-10deg); }
+  50%       { transform: rotate(10deg); }
+}
+
+@keyframes eyePulse {
+  0%, 100% { filter: drop-shadow(0 0 6px var(--monster-color, #ff2200)); }
+  50%       { filter: drop-shadow(0 0 20px var(--monster-color, #ff6600)) drop-shadow(0 0 8px var(--monster-color, #ff2200)); }
+}
+
+@keyframes fogA {
+  0%   { transform: translateX(-5%)  scaleY(1.0); opacity: 0.18; }
+  50%  { transform: translateX(6%)   scaleY(1.3); opacity: 0.28; }
+  100% { transform: translateX(-5%)  scaleY(1.0); opacity: 0.18; }
+}
+
+@keyframes fogB {
+  0%   { transform: translateX(8%)   scaleY(0.8); opacity: 0.12; }
+  50%  { transform: translateX(-6%)  scaleY(1.1); opacity: 0.22; }
+  100% { transform: translateX(8%)   scaleY(0.8); opacity: 0.12; }
+}
+
+@keyframes titleFlicker {
+  0%, 93%, 95%, 97%, 100% { opacity: 1; }
+  94%, 96%                 { opacity: 0.2; }
+}
+
+@keyframes bloodDrip {
+  0%   { height: 0;                    opacity: 0.9; }
+  80%  { height: var(--drip-len, 50px); opacity: 0.9; }
+  100% { height: var(--drip-len, 50px); opacity: 0; }
+}
+
+@keyframes firefly {
+  0%   { opacity: 0;   transform: translate(0, 0)                     scale(0.5); }
+  20%  { opacity: 0.9; }
+  80%  { opacity: 0.5; }
+  100% { opacity: 0;   transform: translate(var(--tx, 0), var(--ty, 0)) scale(1.2); }
+}
+
+@keyframes countPop {
+  0%   { transform: scale(1);   }
+  30%  { transform: scale(1.55); color: #ff2200; }
+  100% { transform: scale(1);   }
+}
+
+@keyframes ambientPulse {
+  0%, 100% { opacity: 0.04; }
+  50%       { opacity: 0.12; }
+}
+
+@keyframes introFade {
+  0%   { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spiderDangle {
+  0%, 100% { transform: translateY(0)  rotate(-3deg); }
+  50%       { transform: translateY(8px) rotate(3deg); }
+}
+
+@keyframes panelSlideIn {
+  0%   { opacity: 0; transform: translate(-50%, -46%); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+@keyframes introIcon {
+  0%, 100% { transform: scale(1)    rotate(-4deg); opacity: 0.7; }
+  50%       { transform: scale(1.08) rotate(4deg);  opacity: 1; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MONSTER-SPECIFIC SPAWN ANIMATIONS
+   Each monster gets a totally different entrance + exit personality.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Ghost — materialises from mist, undulates upward */
+@keyframes spawnGhost {
+  0%   { transform: translateY(10px)  scale(0.1) rotate(0deg);   opacity: 0; filter: blur(18px); }
+  18%  { transform: translateY(-18px) scale(1.18) rotate(-8deg); opacity: 0.9; filter: blur(0); }
+  35%  { transform: translateY(-30px) scale(1.0)  rotate(6deg);  opacity: 1; }
+  60%  { transform: translateY(-80px) scale(1.06) rotate(-4deg); opacity: 0.85; }
+  80%  { transform: translateY(-130px) scale(0.8) rotate(3deg);  opacity: 0.5; }
+  100% { transform: translateY(-210px) scale(0.2) rotate(-2deg); opacity: 0; filter: blur(10px); }
+}
+
+/* Pumpkin — tumbles in from above, bounces twice, then floats */
+@keyframes spawnPumpkin {
+  0%   { transform: translateY(-90px) scale(0.5) rotate(-25deg); opacity: 0; }
+  22%  { transform: translateY(0)     scale(1.25) rotate(12deg);  opacity: 1; }
+  36%  { transform: translateY(-28px) scale(0.88) rotate(-6deg);  opacity: 1; }
+  50%  { transform: translateY(0)     scale(1.08) rotate(4deg);   opacity: 1; }
+  62%  { transform: translateY(-14px) scale(0.96) rotate(-2deg);  opacity: 1; }
+  72%  { transform: translateY(0)     scale(1.0)  rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(-200px) scale(0.4) rotate(-5deg);  opacity: 0; }
+}
+
+/* Skull — drops, rattles on "ground", then floats off */
+@keyframes spawnSkull {
+  0%   { transform: translateY(-80px) scale(0.7) rotate(0deg);   opacity: 0; }
+  18%  { transform: translateY(0)     scale(1.1) rotate(-22deg); opacity: 1; }
+  26%  { transform: translateY(-8px)  scale(1.0) rotate(18deg);  opacity: 1; }
+  34%  { transform: translateY(0)     scale(1.05) rotate(-12deg); opacity: 1; }
+  42%  { transform: translateY(-5px)  scale(1.0) rotate(8deg);   opacity: 1; }
+  50%  { transform: translateY(0)     scale(1.0) rotate(-4deg);  opacity: 1; }
+  58%  { transform: translateY(-3px)  scale(1.0) rotate(2deg);   opacity: 1; }
+  65%  { transform: translateY(0)     scale(1.0) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(-190px) scale(0.4);               opacity: 0; }
+}
+
+/* Bat — swoops in from upper-right corner, dips, then climbs away */
+@keyframes spawnBat {
+  0%   { transform: translate(90px,  -70px) scale(0.4) rotate(35deg);  opacity: 0; }
+  22%  { transform: translate(15px,    0)   scale(1.15) rotate(-12deg); opacity: 1; }
+  40%  { transform: translate(-25px, -35px) scale(1.0)  rotate(8deg);  opacity: 1; }
+  60%  { transform: translate(12px,  -80px) scale(0.88) rotate(-6deg); opacity: 0.85; }
+  100% { transform: translate(-40px, -210px) scale(0.35) rotate(5deg); opacity: 0; }
+}
+
+/* Spider — drops fast on a silk thread, bounces at end of thread, recoils */
+@keyframes spawnSpider {
+  0%   { transform: translateY(-130px) scale(0.7);  opacity: 0; }
+  28%  { transform: translateY(0)      scale(1.15); opacity: 1; }
+  40%  { transform: translateY(-22px)  scale(0.95); opacity: 1; }
+  52%  { transform: translateY(0)      scale(1.05); opacity: 1; }
+  62%  { transform: translateY(-10px)  scale(1.0);  opacity: 1; }
+  70%  { transform: translateY(0)      scale(1.0);  opacity: 1; }
+  100% { transform: translateY(-190px) scale(0.4);  opacity: 0; }
+}
+
+/* Vampire — rises from below with dramatic cape spread */
+@keyframes spawnVampire {
+  0%   { transform: translateY(70px) scaleX(0.15) scale(0.5); opacity: 0; }
+  18%  { transform: translateY(0)    scaleX(1.3)  scale(1.1); opacity: 1; }
+  30%  { transform: translateY(-12px) scaleX(0.92) scale(1.0); opacity: 1; }
+  45%  { transform: translateY(0)    scaleX(1.0)  scale(1.0); opacity: 1; }
+  100% { transform: translateY(-195px) scale(0.45); opacity: 0; }
+}
+
+/* Zombie — shambles/lurches diagonally, staggers left-right */
+@keyframes spawnZombie {
+  0%   { transform: translate(-35px, 25px) scale(0.75) rotate(-18deg); opacity: 0; }
+  18%  { transform: translate(12px,   0)   scale(1.05) rotate(10deg);  opacity: 1; }
+  32%  { transform: translate(-10px, -12px) scale(1.0) rotate(-6deg);  opacity: 1; }
+  46%  { transform: translate(7px,  -28px) scale(1.02) rotate(4deg);   opacity: 1; }
+  62%  { transform: translate(-6px, -65px) scale(0.95) rotate(-3deg);  opacity: 0.9; }
+  100% { transform: translate(-8px, -200px) scale(0.45) rotate(-6deg); opacity: 0; }
+}
+
+/* Witch — spirals in like she flew in on a broom */
+@keyframes spawnWitch {
+  0%   { transform: translateY(0) scale(0.15) rotate(-400deg); opacity: 0; }
+  30%  { transform: translateY(-22px) scale(1.18) rotate(22deg); opacity: 1; }
+  48%  { transform: translateY(-35px) scale(1.0)  rotate(-12deg); opacity: 1; }
+  68%  { transform: translateY(-85px) scale(0.9)  rotate(6deg);  opacity: 0.85; }
+  100% { transform: translateY(-210px) scale(0.35) rotate(190deg); opacity: 0; }
+}
+
+/* Frankenstein — jolts to life with electric flashes, then stomps off */
+@keyframes spawnFranken {
+  0%   { transform: translateY(35px) scale(0.75); opacity: 0;   filter: brightness(1) saturate(1); }
+  8%   { transform: translateY(0)    scale(1.0);  opacity: 1;   filter: brightness(4) saturate(0); }
+  14%  { transform: translateY(-6px) scale(1.06); opacity: 1;   filter: brightness(1); }
+  20%  { transform: translateY(0)    scale(1.0);  opacity: 1;   filter: brightness(3.5) saturate(0); }
+  26%  { transform: translateY(-4px) scale(1.03); opacity: 1;   filter: brightness(1); }
+  32%  { transform: translateY(0)    scale(1.0);  opacity: 1;   filter: brightness(1); }
+  50%  { transform: translateY(-8px)  scale(1.0); opacity: 1; }
+  68%  { transform: translateY(-70px) scale(0.95); opacity: 0.9; }
+  100% { transform: translateY(-200px) scale(0.45); opacity: 0; }
+}
+
+/* Werewolf — pounces in from lower-left with a leap */
+@keyframes spawnWerewolf {
+  0%   { transform: translate(-55px, 50px) scale(0.55) rotate(25deg); opacity: 0; }
+  22%  { transform: translate(0,       0)  scale(1.22) rotate(-6deg); opacity: 1; }
+  36%  { transform: translate(12px, -18px) scale(1.0)  rotate(3deg);  opacity: 1; }
+  52%  { transform: translate(-5px, -40px) scale(1.0)  rotate(-2deg); opacity: 1; }
+  100% { transform: translate(18px, -205px) scale(0.45) rotate(-4deg); opacity: 0; }
+}
+
+/* Mummy — slow, stiff shamble (bandages trailing) */
+@keyframes spawnMummy {
+  0%   { transform: translate(0, 0)     scale(0.72) rotate(0deg);   opacity: 0; }
+  15%  { transform: translate(-12px, 0) scale(1.0)  rotate(-12deg); opacity: 1; }
+  30%  { transform: translate(9px, -14px) scale(1.05) rotate(9deg); opacity: 1; }
+  45%  { transform: translate(-7px,-30px) scale(1.0) rotate(-6deg); opacity: 1; }
+  60%  { transform: translate(5px, -55px) scale(1.0) rotate(4deg);  opacity: 1; }
+  80%  { transform: translate(-3px,-110px) scale(0.8) rotate(-2deg); opacity: 0.7; }
+  100% { transform: translate(0, -200px) scale(0.4) rotate(4deg);   opacity: 0; }
+}
+
+/* Demon — explodes upward from below with a hellfire burst */
+@keyframes spawnDemon {
+  0%   { transform: translateY(95px) scale(0.3) rotate(0deg); opacity: 0;   filter: brightness(1)   saturate(1); }
+  12%  { transform: translateY(0)    scale(1.2) rotate(-6deg); opacity: 1;  filter: brightness(3.5) saturate(3); }
+  22%  { transform: translateY(-14px) scale(1.06) rotate(5deg); opacity: 1; filter: brightness(1)   saturate(1); }
+  35%  { transform: translateY(0)    scale(1.0) rotate(-3deg); opacity: 1;  filter: brightness(1.4) saturate(1.5); }
+  50%  { transform: translateY(-10px) scale(1.0) rotate(2deg); opacity: 1;  filter: brightness(1); }
+  100% { transform: translateY(-200px) scale(0.4); opacity: 0;              filter: brightness(1); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   CURSOR TRAIL ANIMATIONS
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes dropFall {
+  0%   { transform: translateY(0)    translateX(var(--vx, 0)) scale(1)   rotate(var(--rot, 0deg)); opacity: 0.95; }
+  50%  { transform: translateY(18px) translateX(var(--vx, 0)) scale(0.9) rotate(var(--rot, 0deg)); opacity: 0.7; }
+  100% { transform: translateY(42px) translateX(calc(var(--vx, 0) * 0.4)) scale(0.5) rotate(calc(var(--rot, 0deg) + 30deg)); opacity: 0; }
+}
+
+@keyframes splatPop {
+  0%   { transform: scale(0) rotate(0deg);    opacity: 0.9; }
+  40%  { transform: scale(1.4) rotate(20deg); opacity: 0.8; }
+  100% { transform: scale(1) rotate(10deg);   opacity: 0; }
+}
+
+@keyframes cursorGlow {
+  0%, 100% { filter: drop-shadow(0 0 4px #ff0000); transform: translate(-50%, -50%) scale(1); }
+  50%       { filter: drop-shadow(0 0 14px #ff5500); transform: translate(-50%, -50%) scale(1.12); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ENHANCED BLOOD SPLATTER
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes splatSpread {
+  0%   { transform: translate(var(--sx, 0), var(--sy, 0)) scale(0); opacity: 0.9; }
+  50%  { opacity: 0.7; }
+  100% { transform: translate(calc(var(--sx, 0) * 3.5), calc(var(--sy, 0) * 2 + 8px)) scale(0.4); opacity: 0; }
+}
+
+@keyframes dripDrop {
+  0%   { transform: scaleY(0); transform-origin: top center; opacity: 0; }
+  15%  { transform: scaleY(1); opacity: 1; }
+  80%  { transform: scaleY(1); opacity: 0.9; }
+  100% { transform: scaleY(1); opacity: 0; }
+}

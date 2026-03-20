@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Security: Content Security Policy
+         GA4 domains are included so analytics work when VITE_GA_ID is set.
+         If you are NOT using analytics you can tighten this by removing
+         https://www.googletagmanager.com from script-src and
+         https://*.google-analytics.com https://stats.g.doubleclick.net from connect-src.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src  'self' https://www.googletagmanager.com;
+        style-src   'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src    'self' https://fonts.gstatic.com;
+        img-src     'self' data: https://www.googletagmanager.com;
+        connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net;
+        media-src   'none';
+        object-src  'none';
+        frame-src   'none';
+        worker-src  blob:;
+      "
+    />
+    <!-- Prevent clickjacking -->
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <!-- Prevent MIME sniffing -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <!-- Referrer policy -->
+    <meta name="referrer" content="no-referrer" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Horror Fingers — Halloween Keyboard Toy</title>
+    <meta
+      name="description"
+      content="Press any key or tap the screen to summon Halloween monsters! A spooky, premium keyboard toy for all ages."
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

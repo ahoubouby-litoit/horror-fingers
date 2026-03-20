@@ -12,6 +12,7 @@ import { HUD }          from './components/HUD/HUD';
 import { MonsterSpawn } from './components/MonsterSpawn/MonsterSpawn';
 import { ParentPanel }  from './components/ParentPanel/ParentPanel';
 
+import { Analytics } from '@vercel/analytics/react';
 import { initAnalytics, trackKey, trackTap, trackMonster } from './analytics';
 
 import styles from './App.module.css';
@@ -175,6 +176,9 @@ export default function App() {
 
       {/* Cursor trail — rendered last so it sits above everything */}
       <CursorTrail />
+
+      {/* Vercel Analytics — invisible, auto-activates on Vercel deployments */}
+      <Analytics />
     </div>
   );
 }
